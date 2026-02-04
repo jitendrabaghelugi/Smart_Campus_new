@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import io from 'socket.io-client';
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://smart-campus-new.onrender.com/");
 
 const Teacher = () => {
   const [messages, setMessages] = useState([]);
