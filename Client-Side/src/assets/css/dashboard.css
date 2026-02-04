@@ -1,0 +1,146 @@
+.analytics-container {
+    background-color: #050505;
+    min-height: 100vh;
+    padding: 6rem 2rem;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.analytics-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.analytics-header { margin-bottom: 3rem; }
+.header-title-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.brain-icon-box {
+    width: 3rem; height: 3rem;
+    background: linear-gradient(to bottom right, #22d3ee, #9333ea);
+    border-radius: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 20px -5px rgba(147, 51, 234, 0.5);
+}
+.analytics-header h2 { font-size: 2.5rem; font-weight: 700; }
+.analytics-header p { color: rgba(255, 255, 255, 0.6); font-size: 1.125rem; }
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    transition: 0.3s;
+}
+
+.stat-card:hover { border-color: rgba(255, 255, 255, 0.2); }
+.stat-header { display: flex; justify-content: space-between; color: rgba(255, 255, 255, 0.6); margin-bottom: 1rem; }
+.stat-value { font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+.text-cyan { color: #22d3ee; }
+.text-purple { color: #a855f7; }
+.text-green { color: #10b981; }
+
+/* Insights Section */
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.insight-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    backdrop-filter: blur(20px);
+}
+
+.insight-icon {
+    width: 3rem; height: 3rem;
+    border-radius: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.green-grad .insight-icon { background: linear-gradient(135deg, #4ade80, #059669); }
+.orange-grad .insight-icon { background: linear-gradient(135deg, #fb923c, #dc2626); }
+.blue-grad .insight-icon { background: linear-gradient(135deg, #22d3ee, #2563eb); }
+
+/* Heatmap Section */
+.heatmap-section {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 1.25rem;
+    margin-top: 2rem;
+}
+
+.heatmap-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+.day-label { width: 3rem; color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; }
+.heatmap-cells { flex: 1; display: grid; grid-template-columns: repeat(8, 1fr); gap: 0.5rem; }
+.heatmap-cell { aspect-ratio: 1/1; border-radius: 0.5rem; }
+
+.cell-color-1 { background-color: #00e5ff; }
+.cell-color-2 { background-color: #7b61ff; }
+.cell-color-3 { background-color: #10b981; }
+.cell-color-4 { background-color: #ef4444; }
+
+.heatmap-legend { display: flex; align-items: center; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; }
+.legend-colors { display: flex; gap: 0.5rem; }
+.legend-box { width: 1.5rem; height: 1.5rem; border-radius: 0.25rem; opacity: 0.8; }
+.legend-box.red { background: #ef4444; }
+.legend-box.purple { background: #7b61ff; }
+.legend-box.cyan { background: #00e5ff; }
+.legend-box.green { background: #10b981; }
+/* Charts Section */
+.charts-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-box {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;
+    padding: 2rem;
+}
+
+.chart-box h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.chart-wrapper {
+    width: 100%;
+    height: 300px;
+}
+
+/* Tooltip Customization */
+.recharts-tooltip-cursor {
+    stroke: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+}

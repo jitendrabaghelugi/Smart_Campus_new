@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif; 
+}
+body {
+  overflow-x: hidden;
+}
+
+.home-background {
+  
+  background: url('../images/wmremove-transformed-Picsart-AiImageEnhancer-Picsart-AiImageEnhancer.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.gradient-overlay {
+  width: 100%;
+  height: 100%;
+  padding-left: 8%;
+  
+  display: flex;
+  align-items: center;
+  
+}
+
+.hero-content {
+  max-width: 650px;
+  color: white;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 4.5rem; 
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: #d1d1e0; 
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+}
+
+
+.cta-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 3.5rem;
+}
+
+.btn {
+  padding: 14px 28px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #ff007f 0%, #a800ff 100%);
+  box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+
+  background: linear-gradient(90deg, #0ba360 0%, #3cba92 100%);
+  background: linear-gradient(to right, #11998e, #38ef7d); 
+  box-shadow: 0 0 20px rgba(56, 239, 125, 0.3);
+}
+
+.features-container {
+  display: flex;
+  gap: 20px;
+}
+
+.glass-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* The Glass Effect */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 12px 24px;
+  border-radius: 16px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.card-icon {
+  width: 24px;         
+  height: 24px;       
+  color: #a8a8b3;      
+  flex-shrink: 0;      
+  
+  
+}
+
+
+.glass-card:nth-child(1) .card-icon {
+  color: #ff80bf; 
+}
+.glass-card:nth-child(2) .card-icon {
+  color: #00e5ff;
+}
+
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .gradient-overlay {
+    padding-left: 5%;
+    padding-top: 12%;
+    
+  }
+
+  .cta-container {
+    flex-direction: column;
+  }
+  
+  .features-container {
+    flex-wrap: wrap;
+  }
+}

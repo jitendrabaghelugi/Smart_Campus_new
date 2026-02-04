@@ -1,0 +1,680 @@
+.teacher-container {
+    min-height: 100vh;
+    background-color: #0a0a0c;
+    background-image: radial-gradient(circle at 0% 0%, #161a2e 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, #1a1025 0%, transparent 50%);
+    color: white;
+    padding: 80px 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.teacher-content {
+    max-width: 1200px;
+    margin: 3% auto 0%;
+}
+
+.teacher-layout {
+    display: flex;
+    gap: 32px;
+}
+
+/* Sidebar */
+.teacher-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+}
+
+.teacher-nav-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 16px;
+    position: sticky;
+    top: 100px;
+}
+
+.teacher-nav-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.teacher-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.teacher-nav-btn.is-active {
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.15), rgba(147, 51, 234, 0.15));
+    border: 1px solid rgba(34, 211, 238, 0.5);
+    color: white;
+}
+
+/* Main Content */
+.teacher-main-section {
+    flex-grow: 1;
+}
+
+.teacher-dash-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+/* Grid View (Dashboard) */
+.teacher-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* List View (Students) */
+.teacher-student-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Common Card Style */
+.teacher-stat-card,
+.teacher-student-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    transition: border 0.3s ease;
+}
+
+.teacher-student-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Student Specific Card Layout */
+.teacher-student-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teacher-student-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.teacher-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22d3ee, #9333ea);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.teacher-student-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.teacher-student-roll {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.teacher-student-stats {
+    display: flex;
+    gap: 40px;
+}
+
+.teacher-stat-group {
+    text-align: center;
+}
+
+.teacher-stat-small-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+
+.teacher-stat-small-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Animations & Colors */
+.teacher-view-fade {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.teacher-card-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.teacher-icon-cyan {
+    color: #22d3ee;
+}
+
+.teacher-icon-purple {
+    color: #a855f7;
+}
+
+.teacher-icon-orange {
+    color: #fb923c;
+}
+
+.teacher-card-trend {
+    color: #4ade80;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+    .teacher-layout {
+        flex-direction: column;
+    }
+
+    .teacher-sidebar {
+        width: 100%;
+    }
+
+    .teacher-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .teacher-student-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+
+/* ... Keep previous styles ... */
+
+.teacher-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.teacher-submit-btn {
+    padding: 12px 24px;
+    background: linear-gradient(90deg, #22d3ee, #9333ea);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+    transition: transform 0.2s;
+}
+
+.teacher-submit-btn:hover {
+    transform: translateY(-2px);
+}
+
+.teacher-attendance-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.teacher-attendance-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teacher-attendance-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.teacher-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Present Button Active State */
+.teacher-action-btn.present.active {
+    background: rgba(74, 222, 128, 0.15);
+    border-color: rgba(74, 222, 128, 0.5);
+    color: #4ade80;
+}
+
+/* Absent Button Active State */
+.teacher-action-btn.absent.active {
+    background: rgba(248, 113, 113, 0.15);
+    border-color: rgba(248, 113, 113, 0.5);
+    color: #f87171;
+}
+
+.teacher-action-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.teacher-container {
+    min-height: 100vh;
+    background-color: #0a0a0c;
+    background-image: radial-gradient(circle at top left, #1a1b3a, transparent 40%),
+        radial-gradient(circle at bottom right, #1a1025, transparent 40%);
+    color: white;
+    padding: 80px 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.teacher-content {
+    max-width: 1200px;
+    margin: 3% auto 0%;
+}
+
+.teacher-layout {
+    display: flex;
+    gap: 32px;
+}
+
+/* Sidebar */
+.teacher-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+}
+
+.teacher-nav-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 16px;
+    position: sticky;
+    top: 100px;
+}
+
+.teacher-nav-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.teacher-card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.teacher-nav-btn.is-active {
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.15), rgba(147, 51, 234, 0.15));
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    color: white;
+}
+
+/* Main Content */
+.teacher-main-section {
+    flex-grow: 1;
+}
+
+.teacher-dash-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+/* Card Components */
+.teacher-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.teacher-stat-card,
+.teacher-glass-item {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+/* List Item Layouts */
+.teacher-list-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.teacher-glass-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.teacher-glass-item:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Marks View Specifics */
+.teacher-marks-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.teacher-marks-input {
+    width: 130px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+.teacher-marks-input:focus {
+    border-color: #22d3ee;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.teacher-marks-total {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.teacher-submit-small-btn {
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(90deg, #22d3ee, #9333ea);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Attendance Pill Buttons */
+.teacher-attendance-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.teacher-pill-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+.teacher-pill-btn.present.active {
+    background: rgba(74, 222, 128, 0.15);
+    border-color: #4ade80;
+    color: #4ade80;
+}
+
+.teacher-pill-btn.absent.active {
+    background: rgba(248, 113, 113, 0.15);
+    border-color: #f87171;
+    color: #f87171;
+}
+
+/* Student Stats (View List) */
+.teacher-student-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.teacher-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22d3ee, #9333ea);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.teacher-student-stats {
+    display: flex;
+    gap: 40px;
+}
+
+.teacher-small-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.teacher-small-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Dashboard Utils */
+.teacher-card-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.teacher-icon-cyan {
+    color: #22d3ee;
+}
+
+.teacher-icon-purple {
+    color: #a855f7;
+}
+
+.teacher-icon-orange {
+    color: #fb923c;
+}
+
+/* Animation */
+.teacher-view-fade {
+    animation: teacherFadeIn 0.4s ease-out;
+}
+
+@keyframes teacherFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1024px) {
+    .teacher-layout {
+        flex-direction: column;
+    }
+
+    .teacher-sidebar {
+        width: 100%;
+    }
+
+    .teacher-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .teacher-glass-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}
+
+
+/* Chat Container */
+.teacher-chat-container {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.teacher-chat-box {
+    height: 400px;
+    overflow-y: auto;
+    margin-bottom: 24px;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Hide scrollbar but keep functionality */
+.teacher-chat-box::-webkit-scrollbar {
+    width: 4px;
+}
+
+.teacher-chat-box::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+/* Message Bubbles */
+.teacher-msg-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.teacher-msg-wrapper.received {
+    justify-content: flex-start;
+}
+
+.teacher-msg-wrapper.sent {
+    justify-content: flex-end;
+}
+
+.teacher-msg-bubble {
+    max-width: 450px;
+    padding: 16px 24px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.teacher-msg-bubble.gradient {
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.2), rgba(147, 51, 234, 0.2));
+    border: 1px solid rgba(34, 211, 238, 0.5);
+}
+
+.teacher-msg-user {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+}
+
+.teacher-msg-text {
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.teacher-msg-time {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Chat Input Area */
+.teacher-chat-input-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.teacher-chat-field {
+    flex: 1;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    color: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+.teacher-chat-field:focus {
+    border-color: rgba(34, 211, 238, 0.5);
+}
+
+.teacher-send-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #22d3ee, #9333ea);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.5);
+    transition: transform 0.2s;
+}
+
+.teacher-send-btn:hover {
+    transform: scale(1.05);
+}
