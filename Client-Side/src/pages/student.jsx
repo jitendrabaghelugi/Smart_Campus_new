@@ -8,14 +8,6 @@ import io from 'socket.io-client';
 const socket = io.connect("https://smart-campus-new.onrender.com/");
 
 
-const teachers = [
-  { id: 'JD', name: 'John Doe', roll: '2024001', attendance: '95%', marks: '88%' },
-  { id: 'JS', name: 'Jane Smith', roll: '2024002', attendance: '92%', marks: '91%' },
-  { id: 'MJ', name: 'Mike Johnson', roll: '2024003', attendance: '88%', marks: '85%' },
-  { id: 'SW', name: 'Sarah Williams', roll: '2024004', attendance: '97%', marks: '94%' },
-  { id: 'TB', name: 'Tom Brown', roll: '2024005', attendance: '90%', marks: '87%' },
-];
-
 const DashboardView = () => (
   <div className="view-container">
     <h2 className="view-title">Student Dashboard</h2>
@@ -52,79 +44,203 @@ const DashboardView = () => (
   </div>
 );
 
-const AttendanceView = () => (
-  <div className="view-container">
-    <h2 className="view-title">Attendance Overview</h2>
-    <div className="list-stack">
-      {[
-        { label: 'Mathematics', val: '93%', sub: '28 / 30 classes', color: '#10b981' },
-        { label: 'Physics', val: '87%', sub: '26 / 30 classes', color: '#3b82f6' },
-        { label: 'Chemistry', val: '97%', sub: '29 / 30 classes', color: '#10b981' }
-      ].map((item, i) => (
-        <div key={i} className="list-card">
+const AttendanceView = () => {
+  const [attendanceData, setAttendanceData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-          <div className="list-info">
-            <div>
-              <div className="list-label">{item.label}</div>
-              <div className="list-sub">{item.sub}</div>
+  useEffect(() => {
+    fetchAttendanceData();
+  }, []);
+
+  const fetchAttendanceData = async () => {
+    try {
+      // Fetch student data - you can replace with specific student ID if needed
+      const response = await fetch('https://smart-campus-new.onrender.com/api/students');
+      const data = await response.json();
+
+      if (data.success && data.data.length > 0) {
+        // Get the first student for now - you can modify this to get logged-in student
+        const student = data.data[0];
+
+        // Process academics data for attendance
+        const processedData = student.academics.map(subject => {
+          const percentage = ((subject.attendance.attended / subject.attendance.total) * 100).toFixed(0);
+          return {
+            label: subject.subjectName,
+            val: `${percentage}%`,
+            sub: `${subject.attendance.attended} / ${subject.attendance.total} classes`,
+            color: percentage >= 90 ? '#10b981' : percentage >= 75 ? '#f59e0b' : '#ef4444'
+          };
+        });
+        setAttendanceData(processedData);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching attendance data:', error);
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="view-container">
+        <h2 className="view-title">Attendance Overview</h2>
+        <p style={{ color: '#94a3b8', textAlign: 'center' }}>Loading...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="view-container">
+      <h2 className="view-title">Attendance Overview</h2>
+      <div className="list-stack">
+        {attendanceData.map((item, i) => (
+          <div key={i} className="list-card">
+            <div className="list-info">
+              <div>
+                <div className="list-label">{item.label}</div>
+                <div className="list-sub">{item.sub}</div>
+              </div>
+              <div className="list-value">{item.val}</div>
             </div>
-            <div className="list-value">{item.val}</div>
-          </div>
-          <div className="progress-bar">
-            <div className="progress-fill" style={{ width: item.val, backgroundColor: item.color }}></div>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-const MarksView = () => (
-  <div className="view-container">
-    <h2 className="view-title">Academic Performance</h2>
-    <div className="list-stack">
-      {[{ s: 'Mathematics', m: '92/100' }, { s: 'Physics', m: '85/100' }, { s: 'Chemistry', m: '94/100' }].map((item, i) => (
-        <div key={i} className="list-card">
-
-          <div className="list-info">
-            <div>
-              <div className="list-label">{item.s}</div>
-              <div className="list-sub">Latest Assigment </div>
-
-            </div>
-            <div className="list-value">{item.m}</div>
-          </div>
-          <div className="progress-bar">
-            <div className="progress-fill purple-gradient" style={{ width: item.m.split('/')[0] + '%' }}></div>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-const TeachersView = () => (
-  <div className="teacher-view-fade">
-    <h2 className="teacher-dash-title">Teachers List</h2>
-    <div className="teacher-list-stack">
-      {teachers.map((teacher) => (
-        <div key={teacher.roll} className="teacher-glass-item">
-          <div className="teacher-student-info">
-            <div className="teacher-avatar"><span>{teacher.id}</span></div>
-            <div>
-              <div className="teacher-student-name">{teacher.name}</div>
-              <div className="teacher-student-roll">Roll No: {teacher.roll}</div>
+            <div className="progress-bar">
+              <div className="progress-fill" style={{ width: item.val, backgroundColor: item.color }}></div>
             </div>
           </div>
-          <div className="teacher-student-stats">
-            <div className="teacher-stat-group"><div className="teacher-small-label">Attendance</div><div className="teacher-small-value">{teacher.attendance}</div></div>
-            <div className="teacher-stat-group"><div className="teacher-small-label">Avg. Marks</div><div className="teacher-small-value">{teacher.marks}</div></div>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
+const MarksView = () => {
+  const [marksData, setMarksData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMarksData();
+  }, []);
+
+  const fetchMarksData = async () => {
+    try {
+      // Fetch student data - you can replace with specific student ID if needed
+      const response = await fetch('https://smart-campus-new.onrender.com/api/students');
+      const data = await response.json();
+
+      if (data.success && data.data.length > 0) {
+        // Get the first student for now - you can modify this to get logged-in student
+        const student = data.data[0];
+
+        // Process academics data for marks
+        const processedData = student.academics.map(subject => ({
+          s: subject.subjectName,
+          m: `${subject.marks.obtained}/${subject.marks.total}`
+        }));
+        setMarksData(processedData);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching marks data:', error);
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="view-container">
+        <h2 className="view-title">Academic Performance</h2>
+        <p style={{ color: '#94a3b8', textAlign: 'center' }}>Loading...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="view-container">
+      <h2 className="view-title">Academic Performance</h2>
+      <div className="list-stack">
+        {marksData.map((item, i) => (
+          <div key={i} className="list-card">
+            <div className="list-info">
+              <div>
+                <div className="list-label">{item.s}</div>
+                <div className="list-sub">Latest Assignment</div>
+              </div>
+              <div className="list-value">{item.m}</div>
+            </div>
+            <div className="progress-bar">
+              <div className="progress-fill purple-gradient" style={{ width: item.m.split('/')[0] + '%' }}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const TeachersView = () => {
+  const [teachers, setTeachers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchTeachersData();
+  }, []);
+
+  const fetchTeachersData = async () => {
+    try {
+      const response = await fetch('https://smart-campus-new.onrender.com/api/teachers');
+      const data = await response.json();
+
+      if (data.success && data.data.length > 0) {
+        // Process teacher data
+        const processedData = data.data.map(teacher => ({
+          id: teacher.teacherId,
+          name: teacher.name,
+          roll: teacher.teacherId,
+          subject: teacher.subject,
+          department: teacher.department,
+          email: teacher.email
+        }));
+        setTeachers(processedData);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching teachers data:', error);
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="teacher-view-fade">
+        <h2 className="teacher-dash-title">Teachers List</h2>
+        <p style={{ color: '#94a3b8', textAlign: 'center' }}>Loading...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="teacher-view-fade">
+      <h2 className="teacher-dash-title">Teachers List</h2>
+      <div className="teacher-list-stack">
+        {teachers.map((teacher) => (
+          <div key={teacher.roll} className="teacher-glass-item">
+            <div className="teacher-student-info">
+              <div className="teacher-avatar"><span>{teacher.id}</span></div>
+              <div>
+                <div className="teacher-student-name">{teacher.name}</div>
+                <div className="teacher-student-roll">ID: {teacher.roll}</div>
+              </div>
+            </div>
+            <div className="teacher-student-stats">
+              <div className="teacher-stat-group"><div className="teacher-small-label">Subject</div><div className="teacher-small-value">{teacher.subject}</div></div>
+              <div className="teacher-stat-group"><div className="teacher-small-label">Department</div><div className="teacher-small-value">{teacher.department}</div></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const ChatView = () => {
   const [messages, setMessages] = useState([]);

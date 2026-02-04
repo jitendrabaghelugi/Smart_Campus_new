@@ -123,7 +123,7 @@ const Register = () => {
       login(response.user, response.token);
 
       // Redirect to dashboard
-      navigate('/dashboard');
+      navigate('/home');
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.');
     } finally {

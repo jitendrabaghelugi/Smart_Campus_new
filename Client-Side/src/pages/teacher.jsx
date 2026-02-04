@@ -14,6 +14,8 @@ const Teacher = () => {
   const [messages, setMessages] = useState([]);
   const [init, setInit] = useState(false);
 
+  const [selectedSubject, setSelectedSubject] = useState('Mathematics');
+
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
@@ -66,18 +68,61 @@ const Teacher = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [messageText, setMessageText] = useState("");
 
-  const [attendanceRecord, setAttendanceRecord] = useState({
-    '2024001': 'present', '2024002': 'present', '2024003': 'absent',
-    '2024004': 'present', '2024005': 'present',
-  });
+  const [attendanceRecord, setAttendanceRecord] = useState({});
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const students = [
-    { id: 'JD', name: 'Deepak Kumar', roll: '2024001', attendance: '95%', marks: '88%' },
-    { id: 'JS', name: 'Jitnedra Baghel', roll: '2024002', attendance: '92%', marks: '91%' },
-    { id: 'MJ', name: 'Akash Rajput', roll: '2024003', attendance: '88%', marks: '85%' },
-    { id: 'SW', name: 'Dev Sharma', roll: '2024004', attendance: '97%', marks: '94%' },
-    { id: 'TB', name: 'Harshita Kuari', roll: '2024005', attendance: '90%', marks: '87%' },
-  ];
+  useEffect(() => {
+    fetchStudentsData();
+  }, []);
+
+  const fetchStudentsData = async () => {
+    try {
+      const response = await fetch('https://smart-campus-new.onrender.com/api/students');
+      const data = await response.json();
+
+      if (data.success && data.data.length > 0) {
+        // Process student data
+        const processedData = data.data.map(student => {
+          // Calculate overall attendance and marks from academics
+          let totalAttended = 0;
+          let totalClasses = 0;
+          let totalMarks = 0;
+          let totalMaxMarks = 0;
+
+          student.academics.forEach(subject => {
+            totalAttended += subject.attendance.attended;
+            totalClasses += subject.attendance.total;
+            totalMarks += subject.marks.obtained;
+            totalMaxMarks += subject.marks.total;
+          });
+
+          const attendancePercentage = totalClasses > 0 ? ((totalAttended / totalClasses) * 100).toFixed(1) : 0;
+          const marksPercentage = totalMaxMarks > 0 ? ((totalMarks / totalMaxMarks) * 100).toFixed(1) : 0;
+
+          return {
+            id: student.rollNo.substring(0, 2).toUpperCase(),
+            name: student.name,
+            roll: student.rollNo,
+            attendance: `${attendancePercentage}%`,
+            marks: `${marksPercentage}%`
+          };
+        });
+        setStudents(processedData);
+
+        // Initialize attendance record for all students
+        const initialAttendance = {};
+        processedData.forEach(student => {
+          initialAttendance[student.roll] = 'present';
+        });
+        setAttendanceRecord(initialAttendance);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching students data:', error);
+      setLoading(false);
+    }
+  };
 
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
@@ -154,23 +199,27 @@ const Teacher = () => {
             {activeTab === 'Students' && (
               <div className="teacher-view-fade">
                 <h2 className="teacher-dash-title">Student List</h2>
-                <div className="teacher-list-stack">
-                  {students.map((student) => (
-                    <div key={student.roll} className="teacher-glass-item">
-                      <div className="teacher-student-info">
-                        <div className="teacher-avatar"><span>{student.id}</span></div>
-                        <div>
-                          <div className="teacher-student-name">{student.name}</div>
-                          <div className="teacher-student-roll">Roll No: {student.roll}</div>
+                {loading ? (
+                  <p style={{ color: '#94a3b8', textAlign: 'center' }}>Loading...</p>
+                ) : (
+                  <div className="teacher-list-stack">
+                    {students.map((student) => (
+                      <div key={student.roll} className="teacher-glass-item">
+                        <div className="teacher-student-info">
+                          <div className="teacher-avatar"><span>{student.id}</span></div>
+                          <div>
+                            <div className="teacher-student-name">{student.name}</div>
+                            <div className="teacher-student-roll">Roll No: {student.roll}</div>
+                          </div>
+                        </div>
+                        <div className="teacher-student-stats">
+                          <div className="teacher-stat-group"><div className="teacher-small-label">Attendance</div><div className="teacher-small-value">{student.attendance}</div></div>
+                          <div className="teacher-stat-group"><div className="teacher-small-label">Avg. Marks</div><div className="teacher-small-value">{student.marks}</div></div>
                         </div>
                       </div>
-                      <div className="teacher-student-stats">
-                        <div className="teacher-stat-group"><div className="teacher-small-label">Attendance</div><div className="teacher-small-value">{student.attendance}</div></div>
-                        <div className="teacher-stat-group"><div className="teacher-small-label">Avg. Marks</div><div className="teacher-small-value">{student.marks}</div></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -179,8 +228,22 @@ const Teacher = () => {
               <div className="teacher-view-fade">
                 <div className="teacher-header-flex">
                   <h2 className="teacher-dash-title">Mark Attendance</h2>
+
                   <button className="teacher-submit-btn">Submit Attendance</button>
                 </div>
+                <div className="subject-picker">
+                  <label>Select Classes: </label>
+                  <select
+                    value={selectedSubject}
+                    onChange={(e) => setSelectedSubject(e.target.value)}
+                    className="teacher-subject-select"
+                  >
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                  </select>
+                </div>
+
                 <div className="teacher-list-stack">
                   {students.map((student) => (
                     <div key={student.roll} className="teacher-glass-item">
@@ -202,6 +265,19 @@ const Teacher = () => {
             {activeTab === 'Marks' && (activeTab === 'Marks' && (
               <div className="teacher-view-fade">
                 <h2 className="teacher-dash-title">Enter Marks</h2>
+
+                <div className="subject-picker">
+                  <label>Select Subjects: </label>
+                  <select
+                    value={selectedSubject}
+                    onChange={(e) => setSelectedSubject(e.target.value)}
+                    className="teacher-subject-select"
+                  >
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                  </select>
+                </div>
                 <div className="teacher-list-stack">
                   {students.map((student) => (
                     <div key={student.roll} className="teacher-glass-item">

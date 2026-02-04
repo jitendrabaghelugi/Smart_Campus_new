@@ -17,6 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/chat', require('./routes/chat'));
+app.use('/api/students', require('./routes/student'));
+app.use('/api/teachers', require('./routes/teacher'));
 
 
 
@@ -43,7 +45,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "https://smart-campus-new-1.onrender.com", 
+        origin: "https://smart-campus-new-1.onrender.com",
         methods: ["GET", "POST"]
     }
 });

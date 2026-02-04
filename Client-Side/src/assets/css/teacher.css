@@ -678,3 +678,39 @@
 .teacher-send-btn:hover {
     transform: scale(1.05);
 }
+
+.subject-picker {
+  
+ display: flex;
+  align-items: center;      
+  justify-content: flex-start;  
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.teacher-subject-select {
+    display: inline-flex;
+  align-items: center;      
+  justify-content: center;  
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #22d3ee; 
+  padding: 6px 12px;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.teacher-subject-select option {
+  background: #0f172a;
+  color: white;
+}
+
+.teacher-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; 
+  margin-bottom: 25px;
+}
