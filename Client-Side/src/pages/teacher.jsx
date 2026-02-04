@@ -101,7 +101,7 @@ const Teacher = () => {
           const marksPercentage = totalMaxMarks > 0 ? ((totalMarks / totalMaxMarks) * 100).toFixed(1) : 0;
 
           return {
-            id: student.rollNo.substring(0, 2).toUpperCase(),
+            id: student.name.charAt(0).toUpperCase(), // First letter of name
             name: student.name,
             roll: student.rollNo,
             attendance: `${attendancePercentage}%`,

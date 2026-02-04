@@ -193,7 +193,7 @@ const TeachersView = () => {
       if (data.success && data.data.length > 0) {
         // Process teacher data
         const processedData = data.data.map(teacher => ({
-          id: teacher.teacherId,
+          id: teacher.name.charAt(0).toUpperCase(), // First letter of name
           name: teacher.name,
           roll: teacher.teacherId,
           subject: teacher.subject,
