@@ -168,7 +168,7 @@ const Register = () => {
           </button>
 
           <div className="auth-divider">
-            <span>Or sign up with email</span>
+            <span>Sign up with Email</span>
           </div>
 
           {/* Error Message */}

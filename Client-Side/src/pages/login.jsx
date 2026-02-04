@@ -131,9 +131,10 @@ const Login = () => {
             </svg>
             Continue with Google
           </button>
+          
 
           <div className="separator">
-            <span>Or continue with email</span>
+            <span>Continue with Email</span>
           </div>
 
           {/* Error Message */}
